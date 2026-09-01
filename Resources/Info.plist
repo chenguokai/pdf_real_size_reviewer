@@ -25,6 +25,8 @@
     <string>RealSizePreviewer</string>
     <key>CFBundleIdentifier</key>
     <string>ch.epfl.realsizepreviewer</string>
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>

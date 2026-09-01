@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">True-size PDF Viewer icon</title>
+  <desc id="desc">A macOS-style app icon showing a PDF page on a monitor with ruler marks indicating real physical size.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="160" y1="120" x2="864" y2="904" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5AC8FA"/>
+      <stop offset="0.48" stop-color="#3276F6"/>
+      <stop offset="1" stop-color="#6648E8"/>
+    </linearGradient>
+
+    <linearGradient id="screen" x1="292" y1="266" x2="746" y2="724" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F9FBFF"/>
+      <stop offset="1" stop-color="#E8EEFA"/>
+    </linearGradient>
+
+    <linearGradient id="paper" x1="412" y1="306" x2="620" y2="666" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F4F6FB"/>
+    </linearGradient>
+
+    <linearGradient id="ruler" x1="260" y1="710" x2="778" y2="710" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE06A"/>
+      <stop offset="1" stop-color="#FFB13B"/>
+    </linearGradient>
+
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="26" stdDeviation="28" flood-color="#10204D" flood-opacity="0.28"/>
+    </filter>
+
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#1B2859" flood-opacity="0.18"/>
+    </filter>
+
+    <clipPath id="squircle">
+      <rect x="72" y="72" width="880" height="880" rx="210"/>
+    </clipPath>
+  </defs>
+
+  <!-- macOS squircle background -->
+  <g clip-path="url(#squircle)">
+    <rect x="72" y="72" width="880" height="880" rx="210" fill="url(#bg)"/>
+    <circle cx="230" cy="190" r="290" fill="#FFFFFF" opacity="0.09"/>
+    <circle cx="860" cy="820" r="360" fill="#1A0E68" opacity="0.10"/>
+    <path d="M84 760 C250 640, 404 716, 548 630 C686 548, 810 502, 960 570 L960 960 L84 960 Z"
+          fill="#FFFFFF" opacity="0.05"/>
+  </g>
+
+  <!-- Monitor -->
+  <g filter="url(#shadow)">
+    <rect x="216" y="220" width="592" height="480" rx="46" fill="#20283D"/>
+    <rect x="246" y="252" width="532" height="404" rx="24" fill="url(#screen)"/>
+    <circle cx="512" cy="678" r="7.5" fill="#7C879D"/>
+    <path d="M438 700 H586 L610 776 H414 Z" fill="#252E45"/>
+    <rect x="372" y="770" width="280" height="34" rx="17" fill="#20283D"/>
+  </g>
+
+  <!-- PDF page -->
+  <g filter="url(#softShadow)">
+    <path d="M392 300 H570 L642 372 V632 C642 649.7 627.7 664 610 664 H392
+             C374.3 664 360 649.7 360 632 V332 C360 314.3 374.3 300 392 300 Z"
+          fill="url(#paper)"/>
+    <path d="M570 300 L642 372 H594 C580.7 372 570 361.3 570 348 Z" fill="#DDE4F2"/>
+    <rect x="392" y="410" width="220" height="14" rx="7" fill="#C9D2E3"/>
+    <rect x="392" y="446" width="166" height="14" rx="7" fill="#D6DDEA"/>
+    <rect x="392" y="482" width="196" height="14" rx="7" fill="#D6DDEA"/>
+    <rect x="392" y="532" width="132" height="64" rx="14" fill="#E9EDF6"/>
+    <circle cx="422" cy="562" r="14" fill="#BBC7DB"/>
+    <path d="M446 585 L474 555 L494 573 L522 544 L548 585 Z" fill="#A9B9D2"/>
+  </g>
+
+  <!-- PDF tag -->
+  <g filter="url(#softShadow)">
+    <rect x="332" y="342" width="132" height="62" rx="18" fill="#FF3B30"/>
+    <text x="398" y="383" text-anchor="middle"
+          font-family="-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif"
+          font-size="34" font-weight="800" letter-spacing="1.5" fill="#FFFFFF">PDF</text>
+  </g>
+
+  <!-- Physical ruler overlay -->
+  <g filter="url(#softShadow)">
+    <rect x="260" y="700" width="518" height="88" rx="24" fill="url(#ruler)"/>
+    <path d="M292 700 V746 M326 700 V730 M360 700 V746 M394 700 V730 M428 700 V746
+             M462 700 V730 M496 700 V746 M530 700 V730 M564 700 V746 M598 700 V730
+             M632 700 V746 M666 700 V730 M700 700 V746 M734 700 V730"
+          stroke="#5E4313" stroke-width="8" stroke-linecap="round" opacity="0.82"/>
+    <path d="M294 769 H744" stroke="#5E4313" stroke-width="6" stroke-linecap="round" opacity="0.28"/>
+  </g>
+
+  <!-- True-size corner brackets -->
+  <g fill="none" stroke="#FFFFFF" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" opacity="0.96">
+    <path d="M278 344 V296 H326"/>
+    <path d="M746 344 V296 H698"/>
+    <path d="M278 596 V644 H326"/>
+    <path d="M746 596 V644 H698"/>
+  </g>
+
+  <!-- center scale indicator -->
+  <g filter="url(#softShadow)">
+    <circle cx="716" cy="370" r="62" fill="#FFFFFF"/>
+    <path d="M685 370 H747 M716 339 V401" stroke="#3276F6" stroke-width="14" stroke-linecap="round"/>
+    <circle cx="716" cy="370" r="45" fill="none" stroke="#3276F6" stroke-width="7" opacity="0.28"/>
+  </g>
+
+  <!-- Subtle outer highlight -->
+  <rect x="84" y="84" width="856" height="856" rx="198" fill="none" stroke="#FFFFFF" stroke-width="10" opacity="0.12"/>
+</svg>

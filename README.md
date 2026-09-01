@@ -43,6 +43,16 @@ The resulting app is local and unsigned. For distribution to other Macs, sign an
 
 Calibration is stored separately for each connected display. Moving the window to another monitor switches to that monitor's logical resolution, Retina backing scale, and saved physical measurement.
 
+## Application icon
+
+The editable vector artwork is stored in `Resources/AppIcon.svg`. The asset catalog contains the required macOS raster sizes, and `Resources/AppIcon.icns` is copied into release application bundles. After editing the SVG, regenerate the assets with:
+
+```sh
+./scripts/generate_icon.sh
+```
+
+Icon generation requires `rsvg-convert` from librsvg and Xcode's asset compiler.
+
 ## Tests
 
 ```sh

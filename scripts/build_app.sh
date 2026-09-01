@@ -12,9 +12,10 @@ cd "${PROJECT_DIRECTORY}"
 swift build -c release --disable-sandbox
 BIN_DIRECTORY="$(swift build -c release --disable-sandbox --show-bin-path)"
 
-mkdir -p "${CONTENTS_DIRECTORY}/MacOS"
+mkdir -p "${CONTENTS_DIRECTORY}/MacOS" "${CONTENTS_DIRECTORY}/Resources"
 /usr/bin/ditto "${BIN_DIRECTORY}/RealSizePreviewer" "${CONTENTS_DIRECTORY}/MacOS/RealSizePreviewer"
 /usr/bin/ditto "${PROJECT_DIRECTORY}/Resources/Info.plist" "${CONTENTS_DIRECTORY}/Info.plist"
+/usr/bin/ditto "${PROJECT_DIRECTORY}/Resources/AppIcon.icns" "${CONTENTS_DIRECTORY}/Resources/AppIcon.icns"
 /usr/bin/touch "${APP_DIRECTORY}"
 
 echo "Built ${APP_DIRECTORY}"

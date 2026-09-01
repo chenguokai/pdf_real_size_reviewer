@@ -1,3 +1,4 @@
+import AppKit
 import SwiftUI
 import UniformTypeIdentifiers
 
@@ -63,10 +64,11 @@ struct ContentView: View {
 
     private var appIdentity: some View {
         HStack(spacing: 11) {
-            Image(systemName: "viewfinder.circle.fill")
-                .font(.system(size: 30))
-                .symbolRenderingMode(.hierarchical)
-                .foregroundStyle(.blue)
+            Image(nsImage: NSApplication.shared.applicationIconImage)
+                .resizable()
+                .interpolation(.high)
+                .frame(width: 42, height: 42)
+                .shadow(color: .black.opacity(0.16), radius: 3, y: 2)
 
             VStack(alignment: .leading, spacing: 1) {
                 Text("Real Size")
