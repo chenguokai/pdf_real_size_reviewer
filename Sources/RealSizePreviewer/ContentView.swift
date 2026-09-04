@@ -103,6 +103,20 @@ struct ContentView: View {
                     }
                 }
                 .padding(.top, 2)
+
+                Label {
+                    if let reloadDate = model.lastAutomaticReloadDate {
+                        Text("Reloaded at \(reloadDate.formatted(date: .omitted, time: .standard))")
+                    } else {
+                        Text("Watching for disk changes")
+                    }
+                } icon: {
+                    Image(systemName: model.lastAutomaticReloadDate == nil
+                          ? "eye"
+                          : "arrow.triangle.2.circlepath")
+                }
+                .font(.caption2)
+                .foregroundStyle(.secondary)
             }
         }
     }

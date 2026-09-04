@@ -37,9 +37,11 @@ final class AppModel: ObservableObject {
     @Published var proportionsLocked = true
     @Published var previewZoom = 1.0
     @Published var errorMessage: String?
+    @Published private(set) var lastAutomaticReloadDate: Date?
 
     let calibration = DisplayCalibration()
     private var securityScopedURL: URL?
+    private var fileChangeMonitor: FileChangeMonitor?
 
     var pageCount: Int { document?.pageCount ?? 0 }
 
@@ -133,9 +135,6 @@ final class AppModel: ObservableObject {
             return
         }
 
-        if let securityScopedURL {
-            securityScopedURL.stopAccessingSecurityScopedResource()
-        }
         let accessed = url.startAccessingSecurityScopedResource()
 
         guard let loadedDocument = PDFDocument(url: url), loadedDocument.pageCount > 0 else {
@@ -144,12 +143,18 @@ final class AppModel: ObservableObject {
             return
         }
 
+        fileChangeMonitor?.stop()
+        if let securityScopedURL {
+            securityScopedURL.stopAccessingSecurityScopedResource()
+        }
         securityScopedURL = accessed ? url : nil
         document = loadedDocument
         fileURL = url
         pageIndex = 0
         previewZoom = 1
+        lastAutomaticReloadDate = nil
         resetToPDFSize()
+        startMonitoringFile(at: url)
     }
 
     func goToPage(_ index: Int) {
@@ -212,5 +217,44 @@ final class AppModel: ObservableObject {
         let pageSize = pdfSizePoints
         guard pageSize.width > 0, pageSize.height > 0 else { return }
         targetHeightMM = targetWidthMM * pageSize.height / pageSize.width
+    }
+
+    private func startMonitoringFile(at url: URL) {
+        let monitor = FileChangeMonitor(fileURL: url) { [weak self] in
+            Task { @MainActor in
+                self?.reloadPDFFromDisk(at: url)
+            }
+        }
+        fileChangeMonitor = monitor
+        monitor.start()
+    }
+
+    private func reloadPDFFromDisk(at url: URL, attempt: Int = 0) {
+        guard fileURL?.standardizedFileURL == url.standardizedFileURL else { return }
+
+        let oldIntrinsicSize = intrinsicSizeMM
+        let wasUsingPDFSize = proportionsLocked
+            && abs(targetSizeMM.width - oldIntrinsicSize.width) <= 0.05
+            && abs(targetSizeMM.height - oldIntrinsicSize.height) <= 0.05
+
+        guard let reloadedDocument = PDFDocument(url: url), reloadedDocument.pageCount > 0 else {
+            if attempt < 5 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) { [weak self] in
+                    self?.reloadPDFFromDisk(at: url, attempt: attempt + 1)
+                }
+            } else {
+                errorMessage = "The PDF changed on disk, but its updated contents could not be read."
+            }
+            return
+        }
+
+        document = reloadedDocument
+        pageIndex = min(pageIndex, reloadedDocument.pageCount - 1)
+        if wasUsingPDFSize {
+            resetToPDFSize()
+        } else if proportionsLocked {
+            updateHeightFromWidth()
+        }
+        lastAutomaticReloadDate = Date()
     }
 }

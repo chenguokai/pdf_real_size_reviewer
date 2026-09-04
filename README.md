@@ -43,6 +43,8 @@ The resulting app is local and unsigned. For distribution to other Macs, sign an
 
 Calibration is stored separately for each connected display. Moving the window to another monitor switches to that monitor's logical resolution, Retina backing scale, and saved physical measurement.
 
+The open PDF is monitored for changes on disk. Direct writes and atomic-save replacements are reloaded automatically while preserving the current page, preview zoom, and chosen print sizing. The PDF panel shows when the latest automatic reload occurred.
+
 ## Application icon
 
 The editable vector artwork is stored in `Resources/AppIcon.svg`. The asset catalog contains the required macOS raster sizes, and `Resources/AppIcon.icns` is copied into release application bundles. After editing the SVG, regenerate the assets with:
