@@ -81,4 +81,13 @@ final class ScaleCalculatorTests: XCTestCase {
 
         XCTAssertEqual(doubled, base * 2, accuracy: 0.0001)
     }
+
+    func testManualPDFViewScaleCanBeConvertedBackToPreviewZoom() {
+        let zoom = ScaleCalculator.previewZoom(
+            pdfViewScaleFactor: 3.75,
+            actualSizeScaleFactor: 1.5
+        )
+
+        XCTAssertEqual(zoom, 2.5, accuracy: 0.0001)
+    }
 }

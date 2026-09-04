@@ -88,4 +88,15 @@ enum ScaleCalculator {
         )
         return mmPerPDFPoint * viewPointsPerMM * CGFloat(previewZoom)
     }
+
+    static func previewZoom(
+        pdfViewScaleFactor: CGFloat,
+        actualSizeScaleFactor: CGFloat
+    ) -> Double {
+        guard pdfViewScaleFactor.isFinite,
+              actualSizeScaleFactor.isFinite,
+              pdfViewScaleFactor > 0,
+              actualSizeScaleFactor > 0 else { return 1 }
+        return Double(pdfViewScaleFactor / actualSizeScaleFactor)
+    }
 }

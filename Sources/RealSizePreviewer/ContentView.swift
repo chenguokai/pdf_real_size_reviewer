@@ -271,7 +271,8 @@ struct ContentView: View {
                     PDFPreviewView(
                         document: document,
                         pageIndex: model.pageIndex,
-                        scaleFactor: model.pdfScaleFactor
+                        scaleFactor: model.pdfScaleFactor,
+                        onScaleFactorChange: model.pdfViewScaleDidChange
                     )
 
                     VStack {

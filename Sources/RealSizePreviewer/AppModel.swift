@@ -70,15 +70,19 @@ final class AppModel: ObservableObject {
         )
     }
 
-    var pdfScaleFactor: CGFloat {
+    var actualSizeScaleFactor: CGFloat {
         ScaleCalculator.pdfViewScaleFactor(
             pdfSizePoints: pdfSizePoints,
             targetSizeMM: targetSizeMM,
             proportionsLocked: proportionsLocked,
             logicalScreenWidth: calibration.logicalSizePoints.width,
             physicalScreenWidthMM: calibration.effectivePhysicalWidthMM,
-            previewZoom: previewZoom
+            previewZoom: 1
         )
+    }
+
+    var pdfScaleFactor: CGFloat {
+        actualSizeScaleFactor * CGFloat(previewZoom)
     }
 
     var printScalePercent: Double {
@@ -210,7 +214,17 @@ final class AppModel: ObservableObject {
     }
 
     func setPreviewZoom(_ zoom: Double) {
-        previewZoom = min(max(zoom, 0.1), 4)
+        previewZoom = min(max(zoom, 0.02), 20)
+    }
+
+    func pdfViewScaleDidChange(_ scaleFactor: CGFloat) {
+        let zoom = ScaleCalculator.previewZoom(
+            pdfViewScaleFactor: scaleFactor,
+            actualSizeScaleFactor: actualSizeScaleFactor
+        )
+        if abs(previewZoom - zoom) > 0.0001 {
+            setPreviewZoom(zoom)
+        }
     }
 
     private func updateHeightFromWidth() {
